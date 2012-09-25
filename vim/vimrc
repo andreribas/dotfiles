@@ -90,4 +90,8 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
+call pathogen#infect()
+
 " More hints on www.vimbits.com ;)
+
+
