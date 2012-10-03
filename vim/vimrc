@@ -103,6 +103,11 @@ autocmd vimenter * if !argc() | NERDTree | endif
 " 2. Close Vim if the only window open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTRreeType") && b:NERDTreeType == "primary") | q | endif
 
+" Code pasting
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 " More hints on www.vimbits.com ;)
 
 
