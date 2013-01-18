@@ -7,3 +7,12 @@
 [submodule "vim/bundle/vim-less"]
 	path = vim/bundle/vim-less
 	url = https://github.com/KohPoll/vim-less.git
+[submodule "vim/bundle/vim-xdebug"]
+	path = vim/bundle/vim-xdebug
+	url = https://github.com/ludovicPelle/vim-xdebug.git
+[submodule "vim/bundle/taglist"]
+	path = vim/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "vim/bundle/phpqa"]
+	path = vim/bundle/phpqa
+	url = https://github.com/joonty/vim-phpqa.git

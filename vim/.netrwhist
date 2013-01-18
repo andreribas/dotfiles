@@ -1,6 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/aribas/Downloads/wordpress-templates/zeepersonal'
-let g:netrw_dirhist_2='/etc/vim'
-let g:netrw_dirhist_3='/home/aribas/.vim'
-let g:netrw_dirhist_4='/home/aribas/teste/.git/objects'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/aribas/projects/sysclass/www/modules/module_xpay_boleto'
+let g:netrw_dirhist_2='/home/aribas/projects/modules'
+let g:netrw_dirhist_3='/home/aribas/projects/sysclass/www/modules/module_gradebook/css'
