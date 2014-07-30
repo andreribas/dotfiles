@@ -41,7 +41,6 @@ set incsearch		" Incremental search
 "set hidden             " Hide buffers when they are abandoned
 "set mouse=a		" Enable mouse usage (all modes)
 
-
 " Set a vertical line on the 81st column
 set number
 set colorcolumn=121
@@ -49,8 +48,6 @@ set tw=119
 "set colorcolumn=81
 "set tw=79
 highlight ColorColumn ctermbg=233
-
-
 
 " Reselect visual block after indent/outdent
 vnoremap < <gv
@@ -87,19 +84,6 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
-call pathogen#infect()
-
-" Some NERDTree configurations
-" 0. Toggle NERDTree view with ctrl + N
-nmap <silent> <c-n> :NERDTreeToggle<CR>
-
-" 1. Open NERDTree automatically when vim starts up without a file being
-" specified
-autocmd vimenter * if !argc() | NERDTree | endif
-
-" 2. Close Vim if the only window open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 " Code pasting
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -110,11 +94,6 @@ set showmode
 set tabstop=4
 set shiftwidth=4
 set expandtab
-
-" Some Taglist configurations
-let Tlist_Use_Right_Window=1
-let Tlist_Exit_OnlyWindow=1
-nmap <silent> <c-m> :TlistToggle<CR>
 
 " Some minor tweaks
 nmap <space> zz

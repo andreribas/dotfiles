@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/aribas/projects/sysclass/www/modules/module_xpay_boleto'
-let g:netrw_dirhist_2='/home/aribas/projects/modules'
-let g:netrw_dirhist_3='/home/aribas/projects/sysclass/www/modules/module_gradebook/css'
