@@ -1,0 +1,18 @@
+[alias]
+	s = status
+	cane = commit --amend --no-edit
+	fresh = ! git checkout `git mainbranch` && git pull --prune && git branch --merged | grep -v `git mainbranch` | xargs git branch -d
+	currentbranch = ! git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'
+	mainbranch = ! git branch 2> /dev/null | grep -e master -e main | sed -e 's/* \\(.*\\)/\\1/'
+	currentrepo = ! grep url "`git rev-parse --show-toplevel`/.git/config" | cut -f2 -d: | cut -f1 -d.
+	pr = "! \
+		if [ `git currentbranch` == `git mainbranch` ]; then \
+			echo \"Error: Can't create a new Pull Request from '`git mainbranch`'\"; \
+		else \
+			git push origin HEAD -u; \
+			open \"https://github.com/`git currentrepo`/pull/new/`git currentbranch`\"; \
+		fi"
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
