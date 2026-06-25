@@ -1,6 +1,6 @@
 # dotfiles
 
-Configurações pessoais gerenciadas com [stow](https://www.gnu.org/software/stow/).
+Personal configurations managed with [stow](https://www.gnu.org/software/stow/).
 
 ## Setup
 
@@ -10,49 +10,49 @@ cd ~/projects/dotfiles
 ./setup.sh
 ```
 
-O script instala homebrew (se necessário), dependências, cria os symlinks e troca o shell padrão para zsh.
+The script installs homebrew (if needed), dependencies, creates the symlinks, and changes the default shell to zsh.
 
-## O que é instalado
+## What gets installed
 
-| Ferramenta | Tipo | Descrição |
+| Tool | Type | Description |
 |---|---|---|
-| [zsh](TOOLS.md#zsh) | shell | Shell principal. Compatível com bash, melhor autocompletion. |
-| [starship](TOOLS.md#starship) | prompt | Prompt rápido e configurável. Mostra path, git e stack do projeto automaticamente. |
-| [stow](TOOLS.md#stow) | dotfiles | Gerencia symlinks dos dotfiles. `stow <pacote>` para ativar, `stow -D <pacote>` para remover. |
-| [ghostty](TOOLS.md#ghostty) | terminal | Terminal nativo, GPU-accelerated. Rápido e sem frescura. |
-| [zellij](TOOLS.md#zellij) | multiplexer | Divide o terminal em painéis e mantém sessões vivas. Alternativa moderna ao tmux. |
-| [tree](TOOLS.md#tree) | utilitário | Lista diretórios em formato de árvore. |
+| [zsh](TOOLS.md#zsh) | shell | Main shell. bash-compatible, better autocompletion. |
+| [starship](TOOLS.md#starship) | prompt | Fast and configurable prompt. Automatically shows path, git status, and project stack. |
+| [stow](TOOLS.md#stow) | dotfiles | Manages dotfile symlinks. `stow <package>` to activate, `stow -D <package>` to remove. |
+| [ghostty](TOOLS.md#ghostty) | terminal | Native, GPU-accelerated terminal. Fast and no-nonsense. |
+| [zellij](TOOLS.md#zellij) | multiplexer | Splits the terminal into panes and keeps sessions alive. Modern alternative to tmux. |
+| [tree](TOOLS.md#tree) | utility | Lists directories in tree format. |
 
-Para guias detalhados, atalhos e comandos úteis de cada ferramenta, veja [TOOLS.md](TOOLS.md).
+For detailed guides, shortcuts, and useful commands for each tool, see [TOOLS.md](TOOLS.md).
 
-## Estrutura
+## Structure
 
 ```
 dotfiles/
 ├── env/
-│   └── .env.local.sample   # template de tokens e instruções
+│   └── .env.local.sample   # template for tokens and instructions
 ├── git/
-│   └── .gitconfig          # aliases, identidade pessoal, override por remote
+│   └── .gitconfig          # aliases, personal identity, remote-based override
 ├── starship/
 │   └── .config/
 │       └── starship.toml   # prompt: path, git, stack (Node/Python/Ruby)
 └── zsh/
-    └── .zshrc              # PATH, history, aliases, funções utilitárias
+    └── .zshrc              # PATH, history, aliases, utility functions
 ```
 
-## Arquivos locais (não versionados)
+## Local files (not versioned)
 
-Após o setup, crie os arquivos abaixo conforme a máquina. O `setup.sh` cria versões vazias automaticamente.
+After setup, create the files below according to the machine. `setup.sh` creates empty versions automatically.
 
 ### `~/.gitconfig.work`
 
-Email usado automaticamente em repos com remote `github.com/ebanx`:
+Email used automatically in repos with the `github.com/ebanx` remote:
 
 ```ini
 [user]
-    email = seu-email@trabalho.com
+    email = your-work-email@company.com
 ```
 
 ### `~/.env.local`
 
-Tokens e variáveis sensíveis. Baseie-se em `env/.env.local.sample`.
+Tokens and sensitive variables. Base it on `env/.env.local.sample`.

@@ -1,21 +1,21 @@
 # Tools
 
-Guia de referência para cada ferramenta instalada pelo `setup.sh`.
+Reference guide for each tool installed by `setup.sh`.
 
 ---
 
 ## zsh
 
 **Site:** https://www.zsh.org/  
-**Tipo:** shell
+**Type:** shell
 
-Shell principal. Compatível com bash — scripts e hábitos transferem direto. Melhor autocompletion nativo e ecossistema de plugins sem precisar de frameworks pesados.
+Main shell. bash-compatible — scripts and habits transfer directly. Better native autocompletion and plugin ecosystem without needing heavy frameworks.
 
-**Comandos úteis**
+**Useful commands**
 
 ```bash
-reload           # recarrega o .zshrc (alias definido no dotfiles)
-zshprofile       # abre o .zshrc no vim e recarrega ao sair
+reload           # reloads .zshrc (alias defined in dotfiles)
+zshprofile       # opens .zshrc in vim and reloads on exit
 ```
 
 ---
@@ -23,21 +23,21 @@ zshprofile       # abre o .zshrc no vim e recarrega ao sair
 ## starship
 
 **Site:** https://starship.rs/  
-**Tipo:** prompt  
-**Config:** `~/.config/starship.toml` (gerenciado pelo stow)
+**Type:** prompt  
+**Config:** `~/.config/starship.toml` (managed by stow)
 
-Prompt minimalista e rápido. Detecta automaticamente o contexto do diretório atual e exibe informações relevantes.
+Minimalist and fast prompt. Automatically detects the context of the current directory and displays relevant information.
 
-O que aparece no prompt:
-- Path atual (truncado a 4 níveis, raiz do repo quando dentro de um)
-- Branch e status git (modificados, staged, ahead/behind)
-- Versão de Node, Python ou Ruby quando detectados no projeto
+What appears in the prompt:
+- Current path (truncated to 4 levels, repo root when inside one)
+- Git branch and status (modified, staged, ahead/behind)
+- Node, Python, or Ruby version when detected in the project
 
-**Comandos úteis**
+**Useful commands**
 
 ```bash
-starship explain    # mostra o que cada parte do prompt atual representa
-starship preset     # lista presets disponíveis
+starship explain    # shows what each part of the current prompt represents
+starship preset     # lists available presets
 ```
 
 ---
@@ -45,104 +45,104 @@ starship preset     # lista presets disponíveis
 ## stow
 
 **Site:** https://www.gnu.org/software/stow/  
-**Tipo:** gerenciador de symlinks
+**Type:** symlink manager
 
-Cria symlinks de cada pacote para `$HOME`, espelhando a estrutura de diretórios. Permite versionar dotfiles sem mover os arquivos do lugar esperado pelo sistema.
+Creates symlinks from each package to `$HOME`, mirroring the directory structure. Allows versioning dotfiles without moving files from their expected system locations.
 
-**Comandos úteis**
+**Useful commands**
 
 ```bash
-# a partir de ~/projects/dotfiles
-stow zsh                        # ativa o pacote zsh (cria ~/.zshrc)
-stow -D zsh                     # remove os symlinks do pacote zsh
-stow --restow zsh               # recria os symlinks (útil após mudanças)
-stow zsh git starship           # ativa múltiplos pacotes de uma vez
+# from ~/projects/dotfiles
+stow zsh                        # activates the zsh package (creates ~/.zshrc)
+stow -D zsh                     # removes symlinks for the zsh package
+stow --restow zsh               # recreates symlinks (useful after changes)
+stow zsh git starship           # activates multiple packages at once
 ```
 
-**Adicionando um novo pacote**
+**Adding a new package**
 
-1. Crie o diretório com o nome do pacote: `mkdir meu-pacote`
-2. Adicione os arquivos espelhando a estrutura a partir de `$HOME`
-   - Ex: config em `~/.config/foo/bar.toml` → `meu-pacote/.config/foo/bar.toml`
-3. Rode `stow meu-pacote`
-4. Adicione ao `setup.sh`
+1. Create the directory with the package name: `mkdir my-package`
+2. Add files mirroring the structure from `$HOME`
+   - Ex: config at `~/.config/foo/bar.toml` → `my-package/.config/foo/bar.toml`
+3. Run `stow my-package`
+4. Add it to `setup.sh`
 
 ---
 
 ## ghostty
 
 **Site:** https://ghostty.org/  
-**Tipo:** terminal
+**Type:** terminal
 
-Terminal nativo para macOS, GPU-accelerated. Inicialização rápida, suporte a true color, ligatures e multiplexers. Sem Electron, sem frescura.
+Native macOS terminal, GPU-accelerated. Fast startup, true color support, ligatures, and multiplexers. No Electron, no bloat.
 
-**Atalhos úteis**
+**Useful shortcuts**
 
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
-| `Cmd t` | Nova aba |
-| `Cmd n` | Nova janela |
-| `Cmd d` | Dividir painel verticalmente |
-| `Cmd Shift d` | Dividir painel horizontalmente |
-| `Cmd [` / `Cmd ]` | Navegar entre painéis |
-| `Cmd ,` | Abrir configurações |
+| `Cmd t` | New tab |
+| `Cmd n` | New window |
+| `Cmd d` | Split pane vertically |
+| `Cmd Shift d` | Split pane horizontally |
+| `Cmd [` / `Cmd ]` | Navigate between panes |
+| `Cmd ,` | Open settings |
 
 ---
 
 ## zellij
 
 **Site:** https://zellij.dev/  
-**Tipo:** multiplexer de terminal
+**Type:** terminal multiplexer
 
-Divide o terminal em painéis e abas, mantendo sessões vivas mesmo após fechar o terminal. Alternativa moderna ao tmux — atalhos visíveis na barra inferior, sem necessidade de decorar configurações.
+Splits the terminal into panes and tabs, keeping sessions alive even after closing the terminal. Modern alternative to tmux — shortcuts visible in the bottom bar, no need to memorize configurations.
 
-Inicie com `zellij`. O modo atual e os atalhos disponíveis aparecem sempre na tela.
+Start with `zellij`. The current mode and available shortcuts are always shown on screen.
 
-**Painéis**
+**Panes**
 
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
-| `Ctrl p` → `n` | Novo painel |
-| `Ctrl p` → `d` | Dividir para baixo |
-| `Ctrl p` → `r` | Dividir para a direita |
-| `Ctrl p` → `x` | Fechar painel |
-| `Ctrl p` → setas | Navegar entre painéis |
-| `Ctrl p` → `z` | Maximizar/restaurar painel atual |
-| `Ctrl p` → `w` | Modo floating (painel flutuante) |
+| `Ctrl p` → `n` | New pane |
+| `Ctrl p` → `d` | Split down |
+| `Ctrl p` → `r` | Split right |
+| `Ctrl p` → `x` | Close pane |
+| `Ctrl p` → arrows | Navigate between panes |
+| `Ctrl p` → `z` | Maximize/restore current pane |
+| `Ctrl p` → `w` | Floating mode (floating pane) |
 
-**Abas**
+**Tabs**
 
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
-| `Ctrl t` → `n` | Nova aba |
-| `Ctrl t` → `x` | Fechar aba |
-| `Ctrl t` → setas | Navegar entre abas |
-| `Ctrl t` → `r` | Renomear aba |
+| `Ctrl t` → `n` | New tab |
+| `Ctrl t` → `x` | Close tab |
+| `Ctrl t` → arrows | Navigate between tabs |
+| `Ctrl t` → `r` | Rename tab |
 
-**Sessões**
+**Sessions**
 
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
-| `Ctrl o` → `d` | Desanexar (sessão continua em background) |
-| `zellij attach` | Reconectar à sessão mais recente |
-| `zellij list-sessions` | Listar sessões ativas |
-| `zellij kill-session <nome>` | Encerrar uma sessão |
+| `Ctrl o` → `d` | Detach (session continues in background) |
+| `zellij attach` | Reconnect to the most recent session |
+| `zellij list-sessions` | List active sessions |
+| `zellij kill-session <name>` | Kill a session |
 
-**Sair:** `Ctrl q`
+**Quit:** `Ctrl q`
 
 ---
 
 ## tree
 
-**Tipo:** utilitário  
+**Type:** utility  
 
-Lista diretórios em formato de árvore. Instalado via homebrew.
+Lists directories in tree format. Installed via homebrew.
 
-**Comandos úteis**
+**Useful commands**
 
 ```bash
-tree                  # lista o diretório atual
-tree -L 2             # limita a 2 níveis de profundidade
-tree -a               # inclui arquivos ocultos
-tree -I node_modules  # ignora um diretório
+tree                  # lists the current directory
+tree -L 2             # limits to 2 levels of depth
+tree -a               # includes hidden files
+tree -I node_modules  # ignores a directory
 ```

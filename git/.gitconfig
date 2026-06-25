@@ -23,7 +23,7 @@
 [init]
 	defaultBranch = main
 
-# email de trabalho quando o remote contém ebanx (HTTPS ou SSH)
+# work email when the remote contains ebanx (HTTPS or SSH)
 [includeIf "hasconfig:remote.*.url:*github.com/ebanx*/**"]
 	path = ~/.gitconfig.work
 [includeIf "hasconfig:remote.*.url:*github.com:ebanx/**"]

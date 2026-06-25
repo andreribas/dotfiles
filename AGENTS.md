@@ -1,89 +1,93 @@
 # AGENTS.md
 
-Guia para agentes de IA trabalhando neste repositório.
+Guide for AI agents working in this repository.
 
-## O que é este projeto
+## What this project is
 
-Dotfiles pessoais do Andre Ribas, gerenciados com [GNU Stow](https://www.gnu.org/software/stow/).
-Cada ferramenta é um pacote isolado. O `setup.sh` automatiza a instalação completa em uma nova máquina.
+Personal dotfiles of Andre Ribas, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Each tool is an isolated package. `setup.sh` automates the full installation on a new machine.
 
-Contexto de uso: macOS (Apple Silicon), ambiente de trabalho na EBANX e uso pessoal.
+Usage context: macOS (Apple Silicon), work environment at EBANX and personal use.
 
-## Estrutura
+## Structure
 
 ```
 dotfiles/
 ├── env/
-│   └── .env.local.sample   # template de variáveis sensíveis
+│   └── .env.local.sample   # template for sensitive variables
 ├── git/
-│   └── .gitconfig          # aliases e identidade git
+│   └── .gitconfig          # aliases and git identity
 ├── starship/
 │   └── .config/
-│       └── starship.toml   # configuração do prompt
+│       └── starship.toml   # prompt configuration
 ├── zsh/
-│   └── .zshrc              # configuração principal do shell
-├── setup.sh                # script de instalação
-├── README.md               # documentação para humanos
-└── AGENTS.md               # este arquivo
+│   └── .zshrc              # main shell configuration
+├── setup.sh                # installation script
+├── README.md               # documentation for humans
+└── AGENTS.md               # this file
 ```
 
-Cada diretório de primeiro nível (exceto `env/`) é um pacote stow. O stow espelha a estrutura a partir de `$HOME` — então `zsh/.zshrc` vira `~/.zshrc`.
+Each top-level directory (except `env/`) is a stow package. Stow mirrors the structure from `$HOME` — so `zsh/.zshrc` becomes `~/.zshrc`.
 
-## Decisões já tomadas
+## Decisions already made
 
-Não questione ou sugira reverter estas decisões sem pedido explícito:
+Do not question or suggest reverting these decisions without an explicit request:
 
-- **zsh** como shell principal — migração do bash, compatibilidade familiar
-- **starship** como prompt — escolha consciente contra oh-my-zsh (pesado, hype excessivo)
-- **stow** para symlinks — automatiza o vínculo entre repo e `$HOME`
-- **ghostty** como terminal
-- **zellij** como multiplexer
-- **safe-chain** wrappando npm/python — segurança contra pacotes maliciosos, manter sempre
-- **sem oh-my-zsh, sem frameworks de shell** — complexidade desnecessária
-- **`.gitconfig` único** — email pessoal por padrão, trabalho via `includeIf` por remote
-- **`.gitconfig.work` não versionado** — contém email corporativo, criado pelo `setup.sh`
-- **`.env.local` não versionado** — tokens e segredos, nunca commitar
+- **zsh** as the main shell — migrated from bash, familiar compatibility
+- **starship** as the prompt — conscious choice against oh-my-zsh (heavy, excessive hype)
+- **stow** for symlinks — automates the link between repo and `$HOME`
+- **ghostty** as the terminal
+- **zellij** as the multiplexer
+- **safe-chain** wrapping npm/python — security against malicious packages, always keep
+- **no oh-my-zsh, no shell frameworks** — unnecessary complexity
+- **single `.gitconfig`** — personal email by default, work via `includeIf` by remote
+- **`.gitconfig.work` not versioned** — contains corporate email, created by `setup.sh`
+- **`.env.local` not versioned** — tokens and secrets, never commit
 
-## Convenções
+## Conventions
 
-### Adicionando novos aliases ou funções ao `.zshrc`
+### Language
 
-- Coloque aliases dentro da seção temática correta (navegação, git, utilitários)
-- Se não existir seção adequada, crie uma com o padrão `# ─── nome ──────`
-- Funções ficam abaixo dos aliases, agrupadas por contexto
-- Sem comentários óbvios — só comente o que não é autoexplicativo
+This repository's language is **English**. All documentation, comments, and commit messages must be written in English.
 
-### Adicionando novas ferramentas
+### Adding new aliases or functions to `.zshrc`
 
-- Se a ferramenta tem arquivo de config próprio, crie um novo pacote stow
-- Adicione a instalação no `setup.sh` na seção de dependências
-- Crie uma seção dedicada em `TOOLS.md` com site, descrição, comandos úteis e atalhos relevantes
-- Adicione a ferramenta na tabela do `README.md` com o link apontando para a seção em `TOOLS.md` (ex: `[nome](TOOLS.md#nome)`) — nunca para o site externo
+- Place aliases inside the correct thematic section (navigation, git, utilities)
+- If no suitable section exists, create one with the pattern `# ─── name ──────`
+- Functions go below aliases, grouped by context
+- No obvious comments — only comment what is not self-explanatory
 
-### Segredos e variáveis de ambiente
+### Adding new tools
 
-- Qualquer token, chave ou credencial vai em `~/.env.local` — nunca no repo
-- Documente o identificador da variável em `env/.env.local.sample` com comentário de uso
-- Adicione ao `.gitignore` qualquer arquivo local que possa conter segredos
+- If the tool has its own config file, create a new stow package
+- Add the installation to `setup.sh` in the dependencies section
+- Create a dedicated section in `TOOLS.md` with site, description, useful commands, and relevant shortcuts
+- Add the tool to the table in `README.md` with the link pointing to the section in `TOOLS.md` (e.g. `[name](TOOLS.md#name)`) — never to the external site
+
+### Secrets and environment variables
+
+- Any token, key, or credential goes in `~/.env.local` — never in the repo
+- Document the variable identifier in `env/.env.local.sample` with a usage comment
+- Add to `.gitignore` any local file that may contain secrets
 
 ### Commits
 
-- Mensagens em inglês, curtas e descritivas
-- Um commit por mudança lógica — não agrupar refactor com feature
+- Messages in English, short and descriptive
+- One commit per logical change — do not group refactor with feature
 
-## O que não fazer
+## What not to do
 
-- Não instalar oh-my-zsh ou qualquer framework de shell
-- Não adicionar plugins de zsh desnecessários — preferir soluções nativas
-- Não commitar arquivos com segredos (`.env.local`, `.gitconfig.work`, `*.bak`)
-- Não adicionar complexidade sem pedido — menos é mais
-- Não criar arquivos de documentação além dos já existentes sem pedido explícito
-- Não sugerir migrar de bash para fish — zsh é a escolha definitiva
+- Do not install oh-my-zsh or any shell framework
+- Do not add unnecessary zsh plugins — prefer native solutions
+- Do not commit files with secrets (`.env.local`, `.gitconfig.work`, `*.bak`)
+- Do not add complexity without being asked — less is more
+- Do not create documentation files beyond the existing ones without an explicit request
+- Do not suggest migrating from bash to fish — zsh is the definitive choice
 
 ## Roadmap
 
-- [ ] Suporte a Linux no `setup.sh` (detecção de OS, `apt` como fallback)
-- [ ] Pacote `vim` com `.vimrc` básico
-- [ ] Considerar `fd`, `bat`, `ripgrep` como alternativas modernas a `find`, `cat`, `grep`
-- [ ] Configuração do ghostty versionada como pacote stow
-- [ ] Configuração do zellij versionada como pacote stow
+- [ ] Linux support in `setup.sh` (OS detection, `apt` as fallback)
+- [ ] `vim` package with a basic `.vimrc`
+- [ ] Consider `fd`, `bat`, `ripgrep` as modern alternatives to `find`, `cat`, `grep`
+- [ ] ghostty configuration versioned as a stow package
+- [ ] zellij configuration versioned as a stow package

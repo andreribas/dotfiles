@@ -2,7 +2,7 @@
 # ─── safe-chain ───────────────────────────────────────────────────────────────
 source /Users/andreribas/.safe-chain/scripts/init-posix.sh
 
-# ─── env local (tokens e chaves sensíveis) ────────────────────────────────────
+# ─── env local (tokens and sensitive keys) ────────────────────────────────────
 [ -f "$HOME/.env.local" ] && source "$HOME/.env.local"
 
 # ─── path ─────────────────────────────────────────────────────────────────────
@@ -33,13 +33,13 @@ setopt PUSHD_IGNORE_DUPS
 # ─── editor ───────────────────────────────────────────────────────────────────
 export EDITOR="vim"
 
-# ─── aliases: navegação ───────────────────────────────────────────────────────
+# ─── aliases: navigation ──────────────────────────────────────────────────────
 alias cdw='cd ~/projects/wayne'
 alias cdp='cd ~/projects/pay'
 alias cde='cd ~/projects/everest'
 alias cdh='cd ~/projects/houston'
 
-# ─── aliases: listagem ────────────────────────────────────────────────────────
+# ─── aliases: listing ─────────────────────────────────────────────────────────
 alias la='ls -a'
 alias ll='ls -lahF'
 
@@ -49,15 +49,15 @@ alias gl='git log --oneline --graph --decorate -20'
 alias gd='git diff'
 alias gds='git diff --staged'
 
-# ─── aliases: utilitários ─────────────────────────────────────────────────────
+# ─── aliases: utilities ───────────────────────────────────────────────────────
 alias tree='tree -C'
 alias reload='source ~/.zshrc'
 alias zshprofile='vim ~/.zshrc && source ~/.zshrc'
 
-# ─── funções utilitárias ──────────────────────────────────────────────────────
+# ─── utility functions ────────────────────────────────────────────────────────
 function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
-# ─── pay: helpers de container ────────────────────────────────────────────────
+# ─── pay: container helpers ───────────────────────────────────────────────────
 PAY_CONTAINER=pay-pay.ebanx.local-1
 
 function pay_status { docker ps | grep $PAY_CONTAINER > /dev/null && echo running || echo stopped; }
