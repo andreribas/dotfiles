@@ -12,6 +12,17 @@ cd ~/projects/dotfiles
 
 O script instala homebrew (se necessário), dependências, cria os symlinks e troca o shell padrão para zsh.
 
+## O que é instalado
+
+| Ferramenta | Tipo | Descrição |
+|---|---|---|
+| [zsh](https://www.zsh.org/) | shell | Shell principal. Compatível com bash, melhor autocompletion. |
+| [starship](https://starship.rs/) | prompt | Prompt rápido e configurável. Mostra path, git e stack do projeto automaticamente. |
+| [stow](https://www.gnu.org/software/stow/) | dotfiles | Gerencia symlinks dos dotfiles. `stow <pacote>` para ativar, `stow -D <pacote>` para remover. |
+| [ghostty](https://ghostty.org/) | terminal | Terminal nativo, GPU-accelerated. Rápido e sem frescura. |
+| [zellij](https://zellij.dev/) | multiplexer | Divide o terminal em painéis e mantém sessões vivas. Alternativa moderna ao tmux — atalhos visíveis na tela. Útil para ter editor e terminal lado a lado. |
+| [tree](https://oldmanprogrammer.net/source.php?dir=projects/tree) | utilitário | Lista diretórios em formato de árvore. Uso: `tree`, `tree -L 2` para limitar profundidade. |
+
 ## Estrutura
 
 ```
