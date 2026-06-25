@@ -1,0 +1,117 @@
+#!/bin/bash
+input=$(cat)
+COLS=$(tput cols 2>/dev/null || echo 120)
+
+echo "$input" | COLUMNS=$COLS python3 -c "
+import sys, json, time, subprocess, os, re, unicodedata
+
+d = json.load(sys.stdin)
+rl = d.get('rate_limits', {})
+now = time.time()
+cols = int(os.environ.get('COLUMNS', 120))
+
+R      = '\x1b[0m'
+BOLD   = '\x1b[1m'
+DIM    = '\x1b[2m'
+RED    = '\x1b[31m'
+GREEN  = '\x1b[32m'
+YELLOW = '\x1b[33m'
+CYAN   = '\x1b[36m'
+WHITE  = '\x1b[97m'
+
+def cpct(p):
+    if p >= 80: return RED
+    if p >= 50: return YELLOW
+    return GREEN
+
+ANSI_RE = re.compile(r'\x1b\[[0-9;]*m')
+def vlen(s):
+    clean = ANSI_RE.sub('', s)
+    w = 0
+    for ch in clean:
+        eaw = unicodedata.east_asian_width(ch)
+        w += 2 if eaw in ('W', 'F') else 1
+    return w
+
+ws = d.get('workspace', {})
+cwd = ws.get('current_dir', os.getcwd())
+repo = ws.get('repo') or {}
+repo_name = repo.get('name', '')
+display_name = repo_name if repo_name else os.path.basename(cwd)
+
+def git(cmd):
+    try:
+        return subprocess.check_output(['git', '-C', cwd] + cmd, stderr=subprocess.DEVNULL, text=True).strip()
+    except:
+        return ''
+
+in_git = bool(git(['rev-parse', '--git-dir']))
+git_str = ''
+if in_git:
+    branch = git(['rev-parse', '--abbrev-ref', 'HEAD']) or '?'
+    lines = git(['status', '--short']).splitlines()
+    staged    = sum(1 for l in lines if len(l) > 1 and l[0] in 'AMDRC' and l[0] != ' ')
+    modified  = sum(1 for l in lines if len(l) > 1 and l[1] in 'MD')
+    untracked = sum(1 for l in lines if l.startswith('??'))
+    ahead  = git(['rev-list', '--count', '@{u}..HEAD'])
+    behind = git(['rev-list', '--count', 'HEAD..@{u}'])
+
+    parts = [CYAN + '⎇ ' + branch + R]
+    if staged    and int(staged)    > 0: parts.append(GREEN  + f'+{staged}'    + R)
+    if modified  and int(modified)  > 0: parts.append(YELLOW + f'~{modified}'  + R)
+    if untracked and int(untracked) > 0: parts.append(DIM    + f'?{untracked}' + R)
+    if ahead     and int(ahead)     > 0: parts.append(WHITE  + f'↑{ahead}'  + R)
+    if behind    and int(behind)    > 0: parts.append(WHITE  + f'↓{behind}' + R)
+    git_str = '  ' + ' '.join(parts)
+
+left = BOLD + WHITE + display_name + R + git_str
+
+def bar(pct, width=8):
+    pct = max(0, min(100, int(round(float(pct)))))
+    filled = round(pct / 100 * width)
+    c = cpct(pct)
+    return c + '█' * filled + DIM + '░' * (width - filled) + R
+
+def fmt_pct(pct):
+    p = int(round(float(pct)))
+    return cpct(p) + f'{p}%' + R
+
+def time_until(ts):
+    if not ts: return ''
+    diff = int(ts - now)
+    if diff <= 0: return DIM + '(now)' + R
+    total_min = diff // 60
+    h, m = divmod(total_min, 60)
+    days = h // 24; h = h % 24
+    if days > 0:   s = f'({days}d{h}h)'
+    elif h > 0:    s = f'({h}h{m:02d}m)'
+    else:          s = f'({m}m)'
+    return DIM + s + R
+
+fh  = rl.get('five_hour', {})
+wk  = rl.get('seven_day', {})
+ctx = d.get('context_window', {})
+
+fh_pct  = float(fh.get('used_percentage', 0))
+wk_pct  = float(wk.get('used_percentage', 0))
+ctx_pct = float(ctx.get('used_percentage', 0))
+
+fh_reset = time_until(fh.get('resets_at'))
+wk_reset = time_until(wk.get('resets_at'))
+
+SEP = DIM + ' │ ' + R
+
+def stat(label, pct, reset=''):
+    parts = [DIM + label + R, bar(pct), fmt_pct(pct)]
+    if reset: parts.append(reset)
+    return ' '.join(p for p in parts if p).strip()
+
+right = SEP.join([
+    stat('5h',  fh_pct,  fh_reset),
+    stat('wk',  wk_pct,  wk_reset),
+    stat('ctx', ctx_pct),
+])
+
+pad = max(1, cols - vlen(left) - vlen(right) - 2)
+print(left + ' ' * pad + right)
+" 2>/dev/null

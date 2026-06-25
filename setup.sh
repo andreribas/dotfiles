@@ -22,7 +22,24 @@ brew install --cask ghostty
 # ─── symlinks via stow ────────────────────────────────────────────────────────
 echo "==> linking dotfiles"
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-stow --dir="$DOTFILES_DIR" --target="$HOME" zsh git starship
+stow --dir="$DOTFILES_DIR" --target="$HOME" zsh git starship claude
+
+# ─── claude settings ──────────────────────────────────────────────────────────
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+if [ ! -f "$CLAUDE_SETTINGS" ]; then
+  echo "{}" > "$CLAUDE_SETTINGS"
+fi
+python3 - "$CLAUDE_SETTINGS" "$HOME" <<'PYEOF'
+import sys, json
+path, home = sys.argv[1], sys.argv[2]
+with open(path) as f:
+  s = json.load(f)
+s['statusLine'] = {'type': 'command', 'command': f'{home}/.claude/statusline.sh'}
+with open(path, 'w') as f:
+  json.dump(s, f, indent=2)
+  f.write('\n')
+PYEOF
+echo "==> configured ~/.claude/settings.json statusLine"
 
 # ─── default shell ────────────────────────────────────────────────────────────
 ZSH_PATH="$(brew --prefix)/bin/zsh"
