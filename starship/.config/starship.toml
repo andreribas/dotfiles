@@ -1,0 +1,70 @@
+# starship.toml — prompt limpo com contexto git e stack
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$nodejs\
+$python\
+$ruby\
+$line_break\
+$character"""
+
+# ─── diretório ────────────────────────────────────────────────────────────────
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "bold cyan"
+
+# ─── git ──────────────────────────────────────────────────────────────────────
+[git_branch]
+format = " [$symbol$branch]($style)"
+symbol = " "
+style = "bold purple"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold yellow"
+conflicted = "⚡"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bold red"
+
+# ─── stacks ───────────────────────────────────────────────────────────────────
+[nodejs]
+format = " [$symbol$version]($style)"
+symbol = " "
+style = "bold green"
+detect_files = ["package.json", ".nvmrc", ".node-version"]
+detect_folders = ["node_modules"]
+
+[python]
+format = " [$symbol$version]($style)"
+symbol = " "
+style = "bold yellow"
+detect_files = ["requirements.txt", "pyproject.toml", "setup.py", "Pipfile", ".python-version"]
+detect_folders = [".venv", "venv"]
+
+[ruby]
+format = " [$symbol$version]($style)"
+symbol = " "
+style = "bold red"
+detect_files = ["Gemfile", ".ruby-version"]
+
+# ─── desabilitados ────────────────────────────────────────────────────────────
+[package]
+disabled = true
+
+[cmd_duration]
+disabled = true
