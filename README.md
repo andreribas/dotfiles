@@ -23,6 +23,40 @@ O script instala homebrew (se necessário), dependências, cria os symlinks e tr
 | [zellij](https://zellij.dev/) | multiplexer | Divide o terminal em painéis e mantém sessões vivas. Alternativa moderna ao tmux — atalhos visíveis na tela. Útil para ter editor e terminal lado a lado. |
 | [tree](https://oldmanprogrammer.net/source.php?dir=projects/tree) | utilitário | Lista diretórios em formato de árvore. Uso: `tree`, `tree -L 2` para limitar profundidade. |
 
+### Zellij — referência rápida
+
+Inicie com `zellij`. Os atalhos disponíveis aparecem na barra inferior da tela.
+
+**Painéis**
+
+| Atalho | Ação |
+|---|---|
+| `Ctrl p` + `n` | Novo painel |
+| `Ctrl p` + `d` | Dividir para baixo |
+| `Ctrl p` + `r` | Dividir para a direita |
+| `Ctrl p` + `x` | Fechar painel |
+| `Ctrl p` + setas | Navegar entre painéis |
+| `Ctrl p` + `z` | Maximizar/restaurar painel atual |
+
+**Abas**
+
+| Atalho | Ação |
+|---|---|
+| `Ctrl t` + `n` | Nova aba |
+| `Ctrl t` + `x` | Fechar aba |
+| `Ctrl t` + setas | Navegar entre abas |
+| `Ctrl t` + `r` | Renomear aba |
+
+**Sessões**
+
+| Atalho | Ação |
+|---|---|
+| `Ctrl o` + `d` | Desanexar sessão (continua rodando em background) |
+| `zellij attach` | Reconectar à sessão existente |
+| `zellij list-sessions` | Listar sessões ativas |
+
+**Sair:** `Ctrl q`
+
 ## Estrutura
 
 ```
