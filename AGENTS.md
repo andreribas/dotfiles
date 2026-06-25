@@ -57,8 +57,8 @@ Não questione ou sugira reverter estas decisões sem pedido explícito:
 
 - Se a ferramenta tem arquivo de config próprio, crie um novo pacote stow
 - Adicione a instalação no `setup.sh` na seção de dependências
-- Documente na tabela de ferramentas do `README.md` com descrição e dica de uso
-- Se tiver muitos atalhos ou curva de aprendizado, adicione referência rápida no `README.md`
+- Crie uma seção dedicada em `TOOLS.md` com site, descrição, comandos úteis e atalhos relevantes
+- Adicione a ferramenta na tabela do `README.md` com o link apontando para a seção em `TOOLS.md` (ex: `[nome](TOOLS.md#nome)`) — nunca para o site externo
 
 ### Segredos e variáveis de ambiente
 
