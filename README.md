@@ -29,16 +29,22 @@ For detailed guides, shortcuts, and useful commands for each tool, see [TOOLS.md
 
 ```
 dotfiles/
-├── env/
-│   └── .env.local.sample   # template for tokens and instructions
-├── git/
-│   └── .gitconfig          # aliases, personal identity, remote-based override
-├── starship/
-│   └── .config/
-│       └── starship.toml   # prompt: path, git, stack (Node/Python/Ruby)
-└── zsh/
-    └── .zshrc              # PATH, history, aliases, utility functions
+├── home/                   # stow packages — symlinked into $HOME on setup
+│   ├── git/
+│   │   └── .gitconfig          # aliases, personal identity, remote-based override
+│   ├── starship/
+│   │   └── .config/
+│   │       └── starship.toml   # prompt: path, git, stack (Node/Python/Ruby)
+│   ├── zsh/
+│   │   └── .zshrc              # PATH, history, aliases, utility functions
+│   └── claude/
+│       └── .claude/
+│           └── statusline.sh   # Claude Code statusline script
+└── env/
+    └── .env.local.sample   # template for tokens and instructions
 ```
+
+To add a new tool's config, create `home/<tool>/` following the same structure. `setup.sh` picks it up automatically.
 
 ## Local files (not versioned)
 

@@ -1,15 +1,19 @@
 
 # ─── safe-chain ───────────────────────────────────────────────────────────────
-source /Users/andreribas/.safe-chain/scripts/init-posix.sh
+[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ] && source "$HOME/.safe-chain/scripts/init-posix.sh"
 
 # ─── env local (tokens and sensitive keys) ────────────────────────────────────
 [ -f "$HOME/.env.local" ] && source "$HOME/.env.local"
+[ -f "$HOME/.local/bin/env" ] && source "$HOME/.local/bin/env"
 
 # ─── path ─────────────────────────────────────────────────────────────────────
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 export PATH="/opt/pmk/env/global/bin:$PATH"
+export PATH="$HOME/.lmstudio/bin:$PATH"
+export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
+export PATH="$(npm config get prefix)/bin:$PATH"
 
 # ─── completions ──────────────────────────────────────────────────────────────
 if type brew &>/dev/null; then

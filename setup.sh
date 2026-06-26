@@ -22,7 +22,43 @@ brew install --cask ghostty
 # ─── symlinks via stow ────────────────────────────────────────────────────────
 echo "==> linking dotfiles"
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-stow --dir="$DOTFILES_DIR" --target="$HOME" zsh git starship claude
+PACKAGES_DIR="$DOTFILES_DIR/home"
+
+# Back up any real files that would conflict with stow.
+# Symlinks already managed by stow are skipped.
+resolve_conflicts() {
+  local pkg="$1"
+  local pkg_dir="$PACKAGES_DIR/$pkg"
+  local found_conflict=0
+
+  while IFS= read -r -d '' src; do
+    local rel="${src#"$pkg_dir"/}"
+    local target="$HOME/$rel"
+
+    [ -e "$target" ] || [ -L "$target" ] || continue  # doesn't exist — no conflict
+    [ -L "$target" ] && [ -e "$target" ] && continue  # valid symlink — stow owns it
+    [ -L "$target" ] && { rm "$target"; continue; }   # broken symlink — safe to replace
+
+    if [ "$found_conflict" -eq 0 ]; then
+      echo ""
+      echo "  conflicts in package: $pkg"
+      found_conflict=1
+    fi
+
+    echo ""
+    echo "  ~/$rel  (backing up to ~/${rel}.bak)"
+    echo "  ── diff: local → repo ──────────────────"
+    diff --unified=3 "$target" "$src" || true
+    echo "  ────────────────────────────────────────"
+
+    cp "$target" "${target}.bak"
+    rm "$target"
+  done < <(find "$pkg_dir" -type f -print0)
+}
+
+for pkg in "$PACKAGES_DIR"/*/; do resolve_conflicts "$(basename "$pkg")"; done
+
+(cd "$PACKAGES_DIR" && stow --target="$HOME" *)
 
 # ─── claude settings ──────────────────────────────────────────────────────────
 CLAUDE_SETTINGS="$HOME/.claude/settings.json"

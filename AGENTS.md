@@ -13,21 +13,25 @@ Usage context: macOS (Apple Silicon), work environment at EBANX and personal use
 
 ```
 dotfiles/
+├── home/                   # stow packages — everything here is symlinked into $HOME
+│   ├── git/
+│   │   └── .gitconfig          # aliases and git identity
+│   ├── starship/
+│   │   └── .config/
+│   │       └── starship.toml   # prompt configuration
+│   ├── zsh/
+│   │   └── .zshrc              # main shell configuration
+│   └── claude/
+│       └── .claude/
+│           └── statusline.sh   # Claude Code statusline script
 ├── env/
 │   └── .env.local.sample   # template for sensitive variables
-├── git/
-│   └── .gitconfig          # aliases and git identity
-├── starship/
-│   └── .config/
-│       └── starship.toml   # prompt configuration
-├── zsh/
-│   └── .zshrc              # main shell configuration
 ├── setup.sh                # installation script
 ├── README.md               # documentation for humans
 └── AGENTS.md               # this file
 ```
 
-Each top-level directory (except `env/`) is a stow package. Stow mirrors the structure from `$HOME` — so `zsh/.zshrc` becomes `~/.zshrc`.
+`home/` contains all stow packages. Stow mirrors their structure into `$HOME` — so `home/zsh/.zshrc` becomes `~/.zshrc`. `setup.sh` auto-detects every subdirectory inside `home/` as a package; no manual registration is needed when adding a new tool.
 
 ## Decisions already made
 
@@ -59,7 +63,7 @@ This repository's language is **English**. All documentation, comments, and comm
 
 ### Adding new tools
 
-- If the tool has its own config file, create a new stow package
+- If the tool has its own config file, create `home/<tool>/` mirroring the path it occupies under `$HOME` — `setup.sh` picks it up automatically, no registration needed
 - Add the installation to `setup.sh` in the dependencies section
 - Create a dedicated section in `TOOLS.md` with site, description, useful commands, and relevant shortcuts
 - Add the tool to the table in `README.md` with the link pointing to the section in `TOOLS.md` (e.g. `[name](TOOLS.md#name)`) — never to the external site
