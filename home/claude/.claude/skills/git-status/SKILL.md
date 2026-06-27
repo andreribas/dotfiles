@@ -14,9 +14,6 @@ Working tree changes:
 Diff summary per file:
 !`git diff --stat HEAD 2>/dev/null`
 
-Recent commits:
-!`git log --oneline -5 2>/dev/null`
-
 ## Instructions
 
 Present the above data as a clean, readable overview in the language of the conversation:
