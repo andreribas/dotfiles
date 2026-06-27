@@ -39,7 +39,11 @@ dotfiles/
 │   │   └── .zshrc              # PATH, history, aliases, utility functions
 │   └── claude/
 │       └── .claude/
-│           └── statusline.sh   # Claude Code statusline script
+│           ├── statusline.sh       # Claude Code statusline script
+│           └── skills/
+│               ├── wrap-up/        # /wrap-up     — session close checklist
+│               ├── git-status/     # /git-status  — visual working tree overview
+│               └── git-log/        # /git-log     — visual commit history
 └── env/
     └── .env.local.sample   # template for tokens and instructions
 ```

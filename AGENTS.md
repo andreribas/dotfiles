@@ -23,7 +23,11 @@ dotfiles/
 │   │   └── .zshrc              # main shell configuration
 │   └── claude/
 │       └── .claude/
-│           └── statusline.sh   # Claude Code statusline script
+│           ├── statusline.sh       # Claude Code statusline script
+│           └── skills/
+│               ├── wrap-up/        # /wrap-up  — session close checklist
+│               ├── git-status/     # /git-status — visual working tree overview
+│               └── git-log/        # /git-log  — visual commit history
 ├── env/
 │   └── .env.local.sample   # template for sensitive variables
 ├── setup.sh                # installation script
@@ -60,6 +64,13 @@ This repository's language is **English**. All documentation, comments, and comm
 - If no suitable section exists, create one with the pattern `# ─── name ──────`
 - Functions go below aliases, grouped by context
 - No obvious comments — only comment what is not self-explanatory
+
+### Adding new Claude Code skills
+
+- Skills live under `home/claude/.claude/skills/<skill-name>/SKILL.md`
+- After creating the file, run `stow -d home -t ~ claude` to symlink it into `~/.claude/skills/`
+- Update the structure tree in both `AGENTS.md` and `README.md`
+- Available immediately via `/<skill-name>` in any Claude Code session (live reload)
 
 ### Adding new tools
 
