@@ -17,8 +17,6 @@ Review this session before closing. Work through each checkpoint and report the 
 
 Report each item with a clear status (done / attention needed). Be direct and brief.
 
-If every checkpoint is clear, end with:
+If every checkpoint is clear, end with a short closing message in the language of the conversation telling the user everything is in order and they can safely close the session. Keep it natural, not formulaic.
 
-> Tudo certo — pode fechar a sessão com segurança. Nada ficou para trás.
-
-If any checkpoint needs attention, do not include that line. Instead, list only the items that need action.
+If any checkpoint needs attention, skip the closing message and list only the items that need action.
