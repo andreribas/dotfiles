@@ -11,7 +11,7 @@ Review this session before closing. Work through each checkpoint and report the 
 
 3. **Future plans** — check if any follow-up actions, TODOs, or deferred decisions were mentioned. Confirm they are captured in memory, a CLAUDE.md, or explicitly handed off to the user.
 
-4. **Delivery** — confirm the core task worked on this session is complete and functional. If not, describe what is missing.
+4. **Delivery** — confirm the core task worked on this session is complete and functional. If not, describe what is missing. Also check whether any new tools, skills, conventions, or structural changes were made that should be reflected in documentation — flag if any doc is out of sync. Look for common doc files (`AGENTS.md`, `README.md`, `TOOLS.md`, `CHANGELOG.md`, `ROADMAP.md`) and any other `.md` files in the repo root that serve as project documentation. The set of relevant files varies per project, so scan what exists rather than assuming a fixed list.
 
 5. **Git** — run `git status` in the working directory. If there are uncommitted changes, list them and ask the user whether to commit.
 
