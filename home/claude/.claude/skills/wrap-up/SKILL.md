@@ -16,3 +16,9 @@ Review this session before closing. Work through each checkpoint and report the 
 5. **Git** — run `git status` in the working directory. If there are uncommitted changes, list them and ask the user whether to commit.
 
 Report each item with a clear status (done / attention needed). Be direct and brief.
+
+If every checkpoint is clear, end with:
+
+> Tudo certo — pode fechar a sessão com segurança. Nada ficou para trás.
+
+If any checkpoint needs attention, do not include that line. Instead, list only the items that need action.
