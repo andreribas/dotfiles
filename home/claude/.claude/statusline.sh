@@ -1,14 +1,13 @@
 #!/bin/bash
 input=$(cat)
-COLS=$(tput cols 2>/dev/null || echo 120)
 
-echo "$input" | COLUMNS=$COLS python3 -c "
-import sys, json, time, subprocess, os, re, unicodedata
+echo "$input" | python3 -c "
+import sys, json, time, subprocess, os, re, unicodedata, shutil
 
 d = json.load(sys.stdin)
 rl = d.get('rate_limits', {})
 now = time.time()
-cols = int(os.environ.get('COLUMNS', 120))
+cols = shutil.get_terminal_size((120, 24)).columns
 
 R      = '\x1b[0m'
 BOLD   = '\x1b[1m'
@@ -66,7 +65,7 @@ if in_git:
 
 left = BOLD + WHITE + display_name + R + git_str
 
-def bar(pct, width=8):
+def bar(pct, width=4):
     pct = max(0, min(100, int(round(float(pct)))))
     filled = round(pct / 100 * width)
     c = cpct(pct)
@@ -99,6 +98,40 @@ ctx_pct = float(ctx.get('used_percentage', 0))
 fh_reset = time_until(fh.get('resets_at'))
 wk_reset = time_until(wk.get('resets_at'))
 
+# MCP status — reads from cache, triggers background refresh when stale
+MCP_CACHE = os.path.expanduser('~/.claude/mcp-status-cache.json')
+MCP_UPDATER = os.path.expanduser('~/.claude/mcp-cache-update.sh')
+MCP_TTL = 300  # seconds
+
+mcp_servers = []
+try:
+    st = os.stat(MCP_CACHE)
+    if now - st.st_mtime >= MCP_TTL:
+        subprocess.Popen(['bash', MCP_UPDATER],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                         start_new_session=True)
+    with open(MCP_CACHE) as f:
+        mcp_servers = json.load(f).get('servers', [])
+except:
+    subprocess.Popen(['bash', MCP_UPDATER],
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                     start_new_session=True)
+
+connected = [s for s in mcp_servers if s.get('connected')]
+high_cnt  = sum(1 for s in connected if s.get('high'))
+low_cnt   = sum(1 for s in connected if not s.get('high'))
+
+if connected:
+    parts = []
+    if high_cnt:
+        c = RED if high_cnt >= 3 else YELLOW
+        parts.append(c + f'↑{high_cnt}' + R)
+    if low_cnt:
+        parts.append(GREEN + f'↓{low_cnt}' + R)
+    mcp_str = DIM + 'MCP: ' + R + ' '.join(parts)
+else:
+    mcp_str = DIM + 'MCP: 0' + R
+
 SEP = DIM + ' │ ' + R
 
 def stat(label, pct, reset=''):
@@ -106,12 +139,16 @@ def stat(label, pct, reset=''):
     if reset: parts.append(reset)
     return ' '.join(p for p in parts if p).strip()
 
-right = SEP.join([
+right_parts = []
+if mcp_str:
+    right_parts.append(mcp_str)
+right_parts += [
     stat('5h',  fh_pct,  fh_reset),
     stat('wk',  wk_pct,  wk_reset),
     stat('ctx', ctx_pct),
-])
+]
+right = SEP.join(right_parts)
 
-pad = max(1, cols - vlen(left) - vlen(right) - 2)
+pad = max(1, cols - vlen(left) - vlen(right) - 4)
 print(left + ' ' * pad + right)
 " 2>/dev/null
