@@ -137,9 +137,9 @@ model_name = model_info.get('display_name', '') if isinstance(model_info, dict) 
 model_id   = (model_info.get('id', '') if isinstance(model_info, dict) else '').lower()
 fast_mode  = d.get('fast_mode', False)
 if model_name:
-    if   'haiku'  in model_id: mc = '\x1b[38;5;214m'
-    elif 'opus'   in model_id: mc = '\x1b[35m'
-    elif 'fable'  in model_id: mc = '\x1b[34m'
+    if   'haiku'  in model_id: mc = '\x1b[34m'
+    elif 'opus'   in model_id: mc = '\x1b[38;5;214m'
+    elif 'fable'  in model_id: mc = RED
     else:                      mc = CYAN  # sonnet e outros
     model_str = DIM + 'M: ' + R + mc + model_name + R
     if fast_mode:
