@@ -132,6 +132,16 @@ if connected:
 else:
     mcp_str = DIM + 'MCP: 0' + R
 
+model_info = d.get('model', {})
+model_name = model_info.get('display_name', '') if isinstance(model_info, dict) else ''
+fast_mode  = d.get('fast_mode', False)
+if model_name:
+    model_str = DIM + 'M: ' + R + CYAN + model_name + R
+    if fast_mode:
+        model_str += ' ' + YELLOW + 'fast' + R
+else:
+    model_str = ''
+
 SEP = DIM + ' │ ' + R
 
 def stat(label, pct, reset=''):
@@ -140,6 +150,8 @@ def stat(label, pct, reset=''):
     return ' '.join(p for p in parts if p).strip()
 
 right_parts = []
+if model_str:
+    right_parts.append(model_str)
 if mcp_str:
     right_parts.append(mcp_str)
 right_parts += [
